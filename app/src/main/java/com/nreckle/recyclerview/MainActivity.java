@@ -3,8 +3,8 @@ package com.nreckle.recyclerview;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView mMainRecyclerView;
@@ -27,7 +27,9 @@ public class MainActivity extends AppCompatActivity {
         // in content do not change the layout size of the RecyclerView
         mMainRecyclerView.setHasFixedSize(true);
 
-        mLayoutManager = new LinearLayoutManager(this);
+//        mLayoutManager = new LinearLayoutManager(this);
+//        mLayoutManager = new GridLayoutManager(this, 2);
+        mLayoutManager = new StaggeredGridLayoutManager(3, RecyclerView.VERTICAL);
         mMainRecyclerView.setLayoutManager(mLayoutManager);
 
         mMainAdapter = new MainAdapter(mDataSet);
