@@ -8,12 +8,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.nreckle.recyclerview.databinding.ItemViewBinding;
 
+import java.util.List;
+
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> {
 
-    private String[] mDataSet;
+    private List<DataModel> dataModelList;
 
-    public MainAdapter(String[] dataSet) {
-        mDataSet = dataSet;
+    public MainAdapter(List<DataModel> dataModels) {
+        dataModelList = dataModels;
     }
 
     // Create new views (invoked by the layout manager)
@@ -30,22 +32,29 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.itemViewBinding.tvTitle.setText(mDataSet[position]);
-        holder.itemViewBinding.tvDescription.setText("D:" + mDataSet[position]);
+
+        DataModel dataModel = dataModelList.get(position);
+        holder.itemViewBinding.setDataModel(dataModel);
+        holder.bind(dataModel);
     }
 
     @Override
     public int getItemCount() {
-        return mDataSet.length;
+        return dataModelList.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
+    static class MyViewHolder extends RecyclerView.ViewHolder {
 
         private final ItemViewBinding itemViewBinding;
 
         public MyViewHolder(ItemViewBinding itemViewBinding) {
             super(itemViewBinding.getRoot());
             this.itemViewBinding = itemViewBinding;
+        }
+
+        public void bind(Object obj) {
+            itemViewBinding.setVariable(BR.dataModel, obj);
+            itemViewBinding.executePendingBindings();
         }
     }
 }
