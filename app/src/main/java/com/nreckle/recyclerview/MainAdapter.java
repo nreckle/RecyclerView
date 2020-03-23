@@ -7,6 +7,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.nreckle.recyclerview.databinding.MyTextViewBinding;
+
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> {
 
     private String[] mDataSet;
@@ -19,9 +21,9 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        TextView v = (TextView) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.my_text_view, parent, false);
-        return new MyViewHolder(v);
+        MyTextViewBinding binding = MyTextViewBinding
+                .inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        return new MyViewHolder(binding.text);
     }
 
     // Replace the contents of a view (invoked by the layout manager)

@@ -6,8 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import com.nreckle.recyclerview.databinding.ActivityMainBinding;
+
 public class MainActivity extends AppCompatActivity {
-    private RecyclerView mMainRecyclerView;
     private MainAdapter mMainAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private String[] mDataSet = {"adfafda", "afafdafefa", "geafdafae",
@@ -20,19 +21,19 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        ActivityMainBinding activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(activityMainBinding.getRoot());
 
-        mMainRecyclerView = findViewById(R.id.rv_main_content);
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
-        mMainRecyclerView.setHasFixedSize(true);
+        activityMainBinding.rvMainContent.setHasFixedSize(true);
 
 //        mLayoutManager = new LinearLayoutManager(this);
 //        mLayoutManager = new GridLayoutManager(this, 2);
         mLayoutManager = new StaggeredGridLayoutManager(3, RecyclerView.VERTICAL);
-        mMainRecyclerView.setLayoutManager(mLayoutManager);
+        activityMainBinding.rvMainContent.setLayoutManager(mLayoutManager);
 
         mMainAdapter = new MainAdapter(mDataSet);
-        mMainRecyclerView.setAdapter(mMainAdapter);
+        activityMainBinding.rvMainContent.setAdapter(mMainAdapter);
     }
 }
