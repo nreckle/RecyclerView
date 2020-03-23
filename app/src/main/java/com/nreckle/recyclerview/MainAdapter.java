@@ -2,12 +2,11 @@ package com.nreckle.recyclerview;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.nreckle.recyclerview.databinding.MyTextViewBinding;
+import com.nreckle.recyclerview.databinding.ItemViewBinding;
 
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> {
 
@@ -21,9 +20,9 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        MyTextViewBinding binding = MyTextViewBinding
+        ItemViewBinding binding = ItemViewBinding
                 .inflate(LayoutInflater.from(parent.getContext()), parent, false);
-        return new MyViewHolder(binding.text);
+        return new MyViewHolder(binding);
     }
 
     // Replace the contents of a view (invoked by the layout manager)
@@ -31,7 +30,8 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.textView.setText(mDataSet[position]);
+        holder.itemViewBinding.tvTitle.setText(mDataSet[position]);
+        holder.itemViewBinding.tvDescription.setText("D:" + mDataSet[position]);
     }
 
     @Override
@@ -40,11 +40,12 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        public final TextView textView;
 
-        public MyViewHolder(TextView v) {
-            super(v);
-            textView = v;
+        private final ItemViewBinding itemViewBinding;
+
+        public MyViewHolder(ItemViewBinding itemViewBinding) {
+            super(itemViewBinding.getRoot());
+            this.itemViewBinding = itemViewBinding;
         }
     }
 }
